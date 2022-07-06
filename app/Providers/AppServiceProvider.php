@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Views\LayoutViewComposer;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +24,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->app->make('view')->composer(
+            [
+                'layouts/main',
+                'controllers.*',
+            ]
+            , LayoutViewComposer::class);
     }
 }

@@ -3,19 +3,19 @@
 namespace App\Nova\Templates;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
-//use OptimistDigital\MediaField\MediaField;
 use Outl1ne\PageManager\Template;
 
 class HomePageTemplate extends Template
 {
+    public static string $name = 'home-page';
+
     public function fields(Request $request): array
     {
         return [
-//            MediaField::make(__('Hero images'), 'hero_images')
-//                ->multiple()
-//                ->collection('hero images'),
+            Image::make(__('Hero image'), 'image'),
             Text::make(__('Hero title'), 'hero_title'),
             Textarea::make(__('Hero text'), 'hero_text'),
             Text::make(__('Hero redirect label'), 'hero_redirect_label'),

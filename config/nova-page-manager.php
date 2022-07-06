@@ -32,6 +32,10 @@ return [
                  'class' => \App\Nova\Templates\HomePageTemplate::class,
                  'unique' => true,
              ],
+            'text-page' => [
+                'class' => \App\Nova\Templates\TextPageTemplate::class,
+                'unique' => false,
+            ],
         ],
         'regions' => [
             // 'header' => [
