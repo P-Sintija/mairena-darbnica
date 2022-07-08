@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
+
 class HomePageController extends Controller
 {
     protected function getIndexTemplate(): string
@@ -13,9 +15,13 @@ class HomePageController extends Controller
     {
         $page = $this->loadPage($this->request);
         $pageData = $page->data ? $page->data[app()->getLocale()] : null;
+        $heroImage = !empty($pageData['image']) && Storage::disk('public')->exists($pageData['image']) ?
+            Storage::disk('public')->url($pageData['image']) : null;
+
         return [
             'page' => $page,
             'pageData' => $pageData,
+            'heroImage' => $heroImage,
         ];
     }
 }
