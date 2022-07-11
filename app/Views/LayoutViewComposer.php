@@ -15,6 +15,8 @@ final class LayoutViewComposer
             'jsControllerName' => $this->getJsControllerName(),
             'menu' => $this->getMenu(),
             'languageMenu' => $this->getLanguagemenu(),
+            'footerMenuLeft' => $this->getFooterMenu(),
+            'footerMenuRight' => $this->getFooterMenuRight(),
         ]);
     }
 
@@ -72,6 +74,58 @@ final class LayoutViewComposer
                 'label' => 'RU',
                 'url' => '/ru',
                 'active' => request()->route()->uri() === 'ru',
+            ],
+        ];
+    }
+
+    protected function getFooterMenu(): array
+    {
+        return [
+            [
+                'label' => 'Home',
+                'url' => 'Home',
+            ],
+            [
+                'label' => 'Furniture',
+                'url' => '',
+            ],
+            [
+                'label' => 'Lookbook',
+                'url' => 'Lookbook',
+            ],
+            [
+                'label' => 'Support',
+                'url' => 'Support',
+            ],
+        ];
+    }
+
+    protected function getFooterMenuRight(): array
+    {
+        return [
+            [
+                'label' => 'Home',
+                'url' => 'Home',
+            ],
+            [
+                'label' => 'Furniture',
+                'url' => '',
+            ],
+            [
+                'label' => 'Lookbook',
+                'url' => 'Lookbook',
+            ],
+            [
+                'label' => 'Support',
+                'url' => 'Support',
+            ],
+            [
+                'label' => 'Home',
+                'url' => 'Home',
+            ],
+            [
+                'label' => 'Furniture',
+                'url' => '',
             ],
         ];
     }
