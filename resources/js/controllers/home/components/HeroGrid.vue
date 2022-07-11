@@ -1,6 +1,6 @@
 <template>
     <section class="relative">
-        <div class="h-96 bg-cover bg-gray-900 lg:h-[600px] sm:h-[500px] h-[400px]"
+        <div class="h-96 bg-cover bg-dark-gray lg:h-[600px] sm:h-[500px] h-[400px]"
              v-bind:style="{ 'background-image': 'url(' + this.heroImage + ')'}">
         </div>
         <div class="absolute top-0 left-0 h-full w-full bg-dark-gray-medium">

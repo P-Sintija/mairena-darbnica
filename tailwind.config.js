@@ -16,7 +16,9 @@ module.exports = {
             'white': '#ffffff',
 
             //BACKGROUND WITH OPACITY
+            'dark-gray-low': 'rgba(23, 23, 23, 0.3)',
             'dark-gray-medium': 'rgba(23, 23, 23, 0.5)',
+            'dark-gray-high': 'rgba(23, 23, 23, 0.7)',
 
             //TEXT
             'text-white': '#ffffff',
@@ -33,12 +35,7 @@ module.exports = {
             //BORDERS
             'br-gray-1': '#d1d5db',
 
-            //
-            //
-            // 'bg-notify': '#f87171',
-            // 'gray-900-opacity-3': 'rgba(15, 23, 42, 0.3)',
-            // 'gray-900-opacity-7': 'rgba(15, 23, 42, 0.7)',
-            //
+
             // //OTHER
             // 'blue-500': '#3b82f6',
             // 'blue-600': '#2563eb',
