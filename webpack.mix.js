@@ -24,6 +24,7 @@ mix.webpackConfig({
 
 mix.js('resources/js/app.ts', 'public/js')
     .vue()
+    .copyDirectory('resources/images', 'public/images')
     .postCss('resources/css/app.css', 'public/css', [
         //
     ]);

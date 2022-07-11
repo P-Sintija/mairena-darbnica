@@ -13,6 +13,8 @@ final class LayoutViewComposer
             'locale' => app()->getLocale(),
             'seoUrl' => request()->url(),
             'jsControllerName' => $this->getJsControllerName(),
+            'menu' => $this->getMenu(),
+            'languageMenu' => $this->getLanguagemenu(),
         ]);
     }
 
@@ -29,5 +31,48 @@ final class LayoutViewComposer
     {
         return Route::getCurrentRoute() ?
             Route::getCurrentRoute()->getActionName() : null;
+    }
+
+    protected function getMenu(): array
+    {
+        return [
+            [
+                'label' => 'Home',
+                'url' => 'Home',
+            ],
+            [
+                'label' => 'Furniture',
+                'url' => '',
+            ],
+            [
+                'label' => 'Lookbook',
+                'url' => 'Lookbook',
+            ],
+            [
+                'label' => 'Support',
+                'url' => 'Support',
+            ],
+        ];
+    }
+
+    protected function getLanguageMenu(): array
+    {
+        return [
+            [
+                'label' => 'LV',
+                'url' => '/lv',
+                'active' => request()->route()->uri() === 'lv',
+            ],
+            [
+                'label' => 'EN',
+                'url' => '/en',
+                'active' => request()->route()->uri() === 'en',
+            ],
+            [
+                'label' => 'RU',
+                'url' => '/ru',
+                'active' => request()->route()->uri() === 'ru',
+            ],
+        ];
     }
 }
