@@ -15,13 +15,16 @@ module.exports = {
             'notify': '#d9f99d',
             'white': '#ffffff',
 
+            //BACKGROUND WITH OPACITY
+            'dark-gray-medium': 'rgba(23, 23, 23, 0.5)',
+
             //TEXT
             'text-white': '#ffffff',
             'text-gray-1': '#262626',
             'text-gray-2': '#737373',
 
             //HIGHLIGHT
-            'light-highlighted': '#84cc16',
+            'light-highlighted': '#9DC209',
             'dark-highlighted': '#65a30d',
 
             //RINGS
@@ -30,11 +33,13 @@ module.exports = {
             //BORDERS
             'br-gray-1': '#d1d5db',
 
+            //
+            //
             // 'bg-notify': '#f87171',
             // 'gray-900-opacity-3': 'rgba(15, 23, 42, 0.3)',
             // 'gray-900-opacity-7': 'rgba(15, 23, 42, 0.7)',
-
-            //OTHER
+            //
+            // //OTHER
             // 'blue-500': '#3b82f6',
             // 'blue-600': '#2563eb',
             // 'blue-700': '#1d4ed8',
