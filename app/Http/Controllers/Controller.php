@@ -9,7 +9,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
-use Outl1ne\PageManager\Models\Page;
+use App\Models\Page;
 
 class Controller extends BaseController
 {

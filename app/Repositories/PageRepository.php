@@ -2,12 +2,18 @@
 
 namespace App\Repositories;
 
-use Outl1ne\PageManager\Models\Page;
+use App\Models\Page;
+use Illuminate\Database\Eloquent\Collection;
 
 class PageRepository
 {
     public function getPageById(int $id): Page
     {
         return Page::findOrFail($id);
+    }
+
+    public function getPageByTemplate(string $template): ?Collection
+    {
+        return Page::where('template', $template)->get();
     }
 }

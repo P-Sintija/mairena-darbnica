@@ -17,7 +17,7 @@ PageRoutes::for(HomePageTemplate::$name, function ($page, $pagePath, $pageLocale
         'uses' => HomePageController::class . '@index',
         'page_id' => $page->id,
         'page_locale' => $pageLocale,
-    ])->name('language.' . $page->id);
+    ])->name('index.' . $page->id);
 });
 
 PageRoutes::for(TextPageTemplate::$name, function ($page, $pagePath, $pageLocale) {
@@ -25,5 +25,5 @@ PageRoutes::for(TextPageTemplate::$name, function ($page, $pagePath, $pageLocale
         'uses' => TextPageController::class . '@index',
         'page_id' => $page->id,
         'page_locale' => $pageLocale,
-    ])->name('language.' . $page->id);
+    ])->name('index.' . $page->id);
 });

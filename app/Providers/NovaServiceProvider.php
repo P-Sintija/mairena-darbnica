@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
+use Outl1ne\MenuBuilder\MenuBuilder;
 use Outl1ne\PageManager\PageManager;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
@@ -69,6 +70,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         return [
             new PageManager(),
+            MenuBuilder::make(),
         ];
     }
 
