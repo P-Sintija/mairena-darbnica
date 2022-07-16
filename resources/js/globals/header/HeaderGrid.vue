@@ -10,7 +10,7 @@
 
             <ul class="hidden lg:flex items-center justify-center space-x-8">
                 <li v-for="item in this.menu" :key="item">
-                    <a :href="item.url" class="text-xl text-text-white hover:text-light-highlighted">{{
+                    <a :href="item.url" class="text-xl text-text-white hover:text-light-highlighted" :target="item.target">{{
                             item.label
                         }}</a>
                 </li>

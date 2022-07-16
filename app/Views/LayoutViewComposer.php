@@ -2,36 +2,26 @@
 
 namespace App\Views;
 
-use App\Models\Menu;
+use App\Enums\Menu\Type as MenuType;
+use App\Models\Menu\Menu;
 use App\Models\Page;
-use App\Nova\Templates\HomePageTemplate;
-use App\Repositories\PageRepository;
+use App\Nova\MenuBuilder\MenuItemTypes\MenuItemPageType;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Outl1ne\PageManager\Helpers\NPMHelpers;
+use Outl1ne\MenuBuilder\MenuItemTypes\MenuItemStaticURLType;
 
 final class LayoutViewComposer
 {
-    protected PageRepository $pageRepository;
-
-    public function __construct(
-        PageRepository $pageRepository,
-    )
-    {
-        $this->pageRepository = $pageRepository;
-    }
-
     public function compose(View $view)
     {
         $view->with([
             'locale' => app()->getLocale(),
             'seoUrl' => request()->url(),
             'jsControllerName' => $this->getJsControllerName(),
-            'menu' => $this->getMenu('menu'),
             'languageMenu' => $this->getLanguagemenu(),
-            'footerMenuLeft' => $this->getMenu('footer_left'),
-            'footerMenuRight' => $this->getMenu('footer_right'),
+            'menu' => $this->getMenu(MenuType::HEADER->value),
+            'footerMenuLeft' => $this->getMenu(MenuType::FOOTER_LEFT->value),
+            'footerMenuRight' => $this->getMenu(MenuType::FOOTER_RIGHT->value),
         ]);
     }
 
@@ -50,43 +40,35 @@ final class LayoutViewComposer
             Route::getCurrentRoute()->getActionName() : null;
     }
 
-    protected function getRootPage(): ?Page
-    {
-        return $this->pageRepository->getPageByTemplate(HomePageTemplate::$name)->first() ?? null;
-    }
-
     protected function getMenu(string $menuType): array
     {
-        $rootPage = $this->getRootPage();
-
-        if ($rootPage && $rootPage->menu($menuType)) {
-            return !empty($rootPage->menu($menuType)->menu_items) ?
-                $this->mappedMenu($rootPage->menu($menuType)->menu_items) : [];
-        }
-
-        return [];
-    }
-
-    protected function mappedMenu(array $menuItems): array
-    {
         $menu = [];
+        $menuItems = Menu::where('slug', $menuType)->first() ?
+            Menu::where('slug', $menuType)
+                ->first()
+                ->rootMenuItems
+                ->where('locale', app()->getLocale())
+                ->where('enabled', true) :
+            [];
 
         foreach ($menuItems as $item) {
+            if ($item->class === MenuItemPageType::class && !empty($item->data['page_id'])) {
+                $redirectPage = Page::find($item->data['page_id']) ?? null;
 
-            if ($item['layout'] === Menu::REDIRECT_PAGE) {
-                $redirectPage = !empty($item['attributes']['page_id']) ? Page::find($item['attributes']['page_id']) : null;
                 if ($redirectPage) {
                     $menu[] = [
-                        'label' => $item['attributes']['label'][app()->getLocale()],
+                        'label' => $item->name,
                         'url' => $redirectPage->path[app()->getLocale()],
+                        'target' => $item->target,
                     ];
                 }
             }
 
-            if ($item['layout'] === Menu::REDIRECT_LINK) {
+            if ($item->class === MenuItemStaticURLType::class && $item->value) {
                 $menu[] = [
-                    'label' => $item['attributes']['label'][app()->getLocale()],
-                    'url' => $item['attributes']['link'][app()->getLocale()],
+                    'label' => $item->name,
+                    'url' => $item->value,
+                    'target' => $item->target,
                 ];
             }
         }
@@ -111,58 +93,6 @@ final class LayoutViewComposer
                 'label' => 'RU',
                 'url' => '/ru',
                 'active' => request()->route()->uri() === 'ru',
-            ],
-        ];
-    }
-
-    protected function getFooterMenu(): array
-    {
-        return [
-            [
-                'label' => 'Home',
-                'url' => 'Home',
-            ],
-            [
-                'label' => 'Furniture',
-                'url' => '',
-            ],
-            [
-                'label' => 'Lookbook',
-                'url' => 'Lookbook',
-            ],
-            [
-                'label' => 'Support',
-                'url' => 'Support',
-            ],
-        ];
-    }
-
-    protected function getFooterMenuRight(): array
-    {
-        return [
-            [
-                'label' => 'Home',
-                'url' => 'Home',
-            ],
-            [
-                'label' => 'Furniture',
-                'url' => '',
-            ],
-            [
-                'label' => 'Lookbook',
-                'url' => 'Lookbook',
-            ],
-            [
-                'label' => 'Support',
-                'url' => 'Support',
-            ],
-            [
-                'label' => 'Home',
-                'url' => 'Home',
-            ],
-            [
-                'label' => 'Furniture',
-                'url' => '',
             ],
         ];
     }

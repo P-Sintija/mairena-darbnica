@@ -3,7 +3,7 @@
         <nav class="list-none">
             <ul class="flex flex-col gap-4">
                 <li class="" v-for="item in this.menuItem" :key="item">
-                    <a :href="item.url" class="text-lg hover:text-light-highlighted">{{ item.label }}</a>
+                    <a :href="item.url" class="text-lg hover:text-light-highlighted" :target="item.target">{{ item.label }}</a>
                 </li>
             </ul>
         </nav>

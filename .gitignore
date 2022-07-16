@@ -11,6 +11,7 @@ public/mix-manifest.json
 .env
 .env.backup
 .env.dusk.local
+.env.testing
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml

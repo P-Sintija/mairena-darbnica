@@ -1,83 +1,58 @@
 <?php
 
-namespace Tests\Browser;
+namespace Tests\Browser\Components;
 
-use App\Models\Menu;
+use App\Enums\Menu\Type;
+use App\Models\Menu\Menu;
+use App\Models\Menu\MenuItem;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
-use Tests\Helpers\WithPage;
 use Tests\Helpers\WithRootPage;
+use Tests\Helpers\WithTextPage;
 
-class ExampleTest extends DuskTestCase
+class MenuTest extends DuskTestCase
 {
     use WithRootPage;
+    use WithTextPage;
     use DatabaseMigrations;
 
-    protected string $pageRedirectLabel;
-    protected string $linkRedirectLabel;
-    protected string $linkRedirectLik;
+    protected MenuItem $menuItemOne;
+    protected MenuItem $menuItemTwo;
+    protected MenuItem $leftFooterItem;
+    protected MenuItem $rightFooterItem;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->pageRedirectLabel = 'Lapas redirekts';
-        $this->linkRedirectLabel = 'Linka redirekts';
-        $this->linkRedirectLik = 'https://www.wikipedia.org';
-
+        $this->createRootPage();
+        $this->createTextPage();
 
         $menu = Menu::factory()->create();
-        $data = [
-            'en' => ['menu' => $menu->id],
-            'lv' => ['menu' => $menu->id],
-            'ru' => ['menu' => $menu->id],
-        ];
-        $page = $this->createRootPage($data);
+        $this->menuItemOne = MenuItem::factory()->for($menu)->create();
+        $this->menuItemTwo = MenuItem::factory()->for($menu)->create();
+
+        $leftFooter = Menu::factory()->create(['slug' => Type::FOOTER_LEFT->value]);
+        $this->leftFooterItem = MenuItem::factory()->for($leftFooter)->create(['value' => 'left']);
+
+        $rightFooter = Menu::factory()->create(['slug' => Type::FOOTER_RIGHT->value]);
+        $this->rightFooterItem = MenuItem::factory()->for($rightFooter)->create(['value' => 'right']);
     }
 
-    public function testMenuOnHomePage()
+    public function testShowMenusOnAllPages()
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
-                ->assertSee('Laravel');
+                ->assertSee($this->menuItemOne->name)
+                ->assertSee($this->menuItemTwo->name)
+                ->assertSee($this->leftFooterItem->name)
+                ->assertSee($this->rightFooterItem->name)
+                ->visit('/text-page-lv')
+                ->assertSee($this->menuItemOne->name)
+                ->assertSee($this->menuItemTwo->name)
+                ->assertSee($this->leftFooterItem->name)
+                ->assertSee($this->rightFooterItem->name);
         });
-    }
-
-    private function menuData(): array
-    {
-        return [
-            'en' => [
-                [
-                    'layout' => Menu::REDIRECT_PAGE,
-                    'key' => 'gK1U0dor4xK3QhaO',
-                    'attributes' => [
-                        'label' => [
-                            'en' => $this->pageRedirectLabel,
-                            'lv' => $this->pageRedirectLabel,
-                            'ru' => $this->pageRedirectLabel,
-                        ],
-                        'page_id' => 1,
-                    ]
-                ],
-                [
-                    'layout' => Menu::REDIRECT_LINK,
-                    'key' => 'j4ligxjZqfEsTzW2',
-                    'attributes' => [
-                        'label' => [
-                            'en' => 'Test-link',
-                            'lv' => 'Tests-link',
-                            'ru' => 'Tjest-link',
-                        ],
-                        'link' => [
-                            'en' => '#',
-                            'lv' => '#',
-                            'ru' => '#',
-                        ],
-                    ]
-                ],
-            ],
-        ];
     }
 }

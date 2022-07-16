@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\Menu\Type as MenuType;
+
 return [
     /*
     |------------------|
@@ -49,19 +51,19 @@ return [
     */
 
     'menus' => [
-         'header' => [
+        MenuType::HEADER->value => [
              'name' => 'Header',
              'unique' => true,
              'max_depth' => 1,
              'menu_item_types' => []
          ],
-        'footer-left' => [
+        MenuType::FOOTER_LEFT->value => [
             'name' => 'Footer Left',
             'unique' => true,
             'max_depth' => 1,
             'menu_item_types' => []
         ],
-        'footer-right' => [
+        MenuType::FOOTER_RIGHT->value => [
             'name' => 'Footer Right',
             'unique' => true,
             'max_depth' => 1,
@@ -79,7 +81,6 @@ return [
     */
 
     'menu_item_types' => [
-        \Outl1ne\MenuBuilder\MenuItemTypes\MenuItemTextType::class,
         \Outl1ne\MenuBuilder\MenuItemTypes\MenuItemStaticURLType::class,
         \App\Nova\MenuBuilder\MenuItemTypes\MenuItemPageType::class,
     ],
@@ -114,7 +115,7 @@ return [
     |
     */
 
-    'menu_model' => Outl1ne\MenuBuilder\Models\Menu::class,
+    'menu_model' => App\Models\Menu\Menu::class,
 
 
     /*
@@ -126,7 +127,7 @@ return [
     |
     */
 
-    'menu_item_model' => Outl1ne\MenuBuilder\Models\MenuItem::class,
+    'menu_item_model' => App\Models\Menu\MenuItem::class,
 
 
     /*
