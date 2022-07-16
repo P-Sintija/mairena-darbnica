@@ -44,15 +44,15 @@ class MenuTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
-                ->assertSee($this->menuItemOne->name)
-                ->assertSee($this->menuItemTwo->name)
-                ->assertSee($this->leftFooterItem->name)
-                ->assertSee($this->rightFooterItem->name)
+                ->assertSeeLink($this->menuItemOne->name)
+                ->assertSeeLink($this->menuItemTwo->name)
+                ->assertSeeLink($this->leftFooterItem->name)
+                ->assertSeeLink($this->rightFooterItem->name)
                 ->visit('/text-page-lv')
-                ->assertSee($this->menuItemOne->name)
-                ->assertSee($this->menuItemTwo->name)
-                ->assertSee($this->leftFooterItem->name)
-                ->assertSee($this->rightFooterItem->name);
+                ->assertSeeLink($this->menuItemOne->name)
+                ->assertSeeLink($this->menuItemTwo->name)
+                ->assertSeeLink($this->leftFooterItem->name)
+                ->assertSeeLink($this->rightFooterItem->name);
         });
     }
 }
