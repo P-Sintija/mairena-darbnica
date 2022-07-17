@@ -6,13 +6,13 @@ use Outl1ne\PageManager\Models\Page;
 
 class PageRoutes
 {
-    public static function for($pageClass, $pageRouteClosure)
+    public static function for($pageTemplate, $pageRouteClosure)
     {
         if (!self::isDbConfigured()) {
             return;
         }
 
-        foreach (Page::where('template', $pageClass)->get() as $page) {
+        foreach (Page::where('template', $pageTemplate)->get() as $page) {
             foreach ($page->path as $locale => $slug) {
                 $pageRouteClosure($page, $slug, $locale);
             }

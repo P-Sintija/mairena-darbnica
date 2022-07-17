@@ -4,11 +4,14 @@
 
     <div id="hero-grid">
         <hero-grid
-                   hero-image="{{ $heroImage }}"
+            hero-image="{{ $heroImage }}"
+            :hero-data=" {{ json_encode($pageData) }}"
         ></hero-grid>
     </div>
 
-    @include('controllers.home.sample.one-6')
+    <div id="category-grid">
+        <category-grid></category-grid>
+    </div>
 
 @endsection
 

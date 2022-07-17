@@ -17,11 +17,13 @@ class HomePageTemplate extends Template
         return [
             Image::make(__('Hero image'), 'image'),
             Text::make(__('Hero title'), 'hero_title'),
-            Textarea::make(__('Hero text'), 'hero_text'),
+            Textarea::make(__('Hero text'), 'hero_text')->alwaysShow(),
             Text::make(__('Hero redirect label'), 'hero_redirect_label'),
             Text::make(__('Hero redirect url'), 'hero_redirect_url'),
+
             Text::make(__('Facebook link'), 'facebook_link'),
             Text::make(__('Instagram link'), 'instagram_link'),
+            Text::make(__('Twitter link'), 'twitter_link'),
         ];
     }
 }
