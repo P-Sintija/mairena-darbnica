@@ -1,8 +1,8 @@
 import {createApp} from "vue";
-// @ts-ignore
-// import HeroImage from "../../globals/HeroImage";
-//
-// const heroImage = createApp({});
-// heroImage.component('hero-image', HeroImage);
-// heroImage.mount('#hero-image');
+//@ts-ignore
+import CatalogGrid from "./components/CatalogGrid";
+
+const catalogGrid = createApp({});
+catalogGrid.component('catalog-grid', CatalogGrid);
+catalogGrid.mount('#catalog-grid');
 
