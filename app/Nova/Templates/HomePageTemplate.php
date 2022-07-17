@@ -20,8 +20,10 @@ class HomePageTemplate extends Template
             Textarea::make(__('Hero text'), 'hero_text')->alwaysShow(),
             Text::make(__('Hero redirect label'), 'hero_redirect_label'),
             Text::make(__('Hero redirect url'), 'hero_redirect_url'),
+
             Text::make(__('Facebook link'), 'facebook_link'),
             Text::make(__('Instagram link'), 'instagram_link'),
+            Text::make(__('Twitter link'), 'twitter_link'),
         ];
     }
 }

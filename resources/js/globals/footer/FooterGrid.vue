@@ -15,7 +15,7 @@
             <div>
                 <div class="mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row justify-between items-center">
                     <p class="text-gray-500 text-sm text-center sm:text-left">© 2022 Mairens</p>
-                    <social-navigation></social-navigation>
+                    <social-navigation :social-media="this.socialMedia"></social-navigation>
                 </div>
             </div>
         </div>
@@ -32,6 +32,7 @@ export default {
     props: {
         menuLeft: Object,
         menuRight: Object,
+        socialMedia: Object,
     },
 }
 </script>

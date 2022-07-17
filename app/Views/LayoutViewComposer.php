@@ -6,6 +6,7 @@ use App\Enums\Menu\Type as MenuType;
 use App\Models\Menu\Menu;
 use App\Models\Page;
 use App\Nova\MenuBuilder\MenuItemTypes\MenuItemPageType;
+use App\Nova\Templates\HomePageTemplate;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Route;
 use Outl1ne\MenuBuilder\MenuItemTypes\MenuItemStaticURLType;
@@ -22,6 +23,7 @@ final class LayoutViewComposer
             'menu' => $this->getMenu(MenuType::HEADER->value),
             'footerMenuLeft' => $this->getMenu(MenuType::FOOTER_LEFT->value),
             'footerMenuRight' => $this->getMenu(MenuType::FOOTER_RIGHT->value),
+            'socialMedia' => $this->socialMediaMenu(),
         ]);
     }
 
@@ -76,24 +78,41 @@ final class LayoutViewComposer
         return $menu;
     }
 
+    protected function rootPage(): ?Page
+    {
+        return Page::where('template', HomePageTemplate::$name)
+            ->where('active', true)
+            ->first();
+    }
+
+    protected function socialMediaMenu(): array
+    {
+        $rootPage = $this->rootPage();
+
+        $socialMediaItems['facebook'] = $rootPage && !empty($rootPage->data[app()->getLocale()]['facebook_link']) ?
+            $rootPage->data[app()->getLocale()]['facebook_link'] : null;
+        $socialMediaItems['instagram'] = $rootPage && !empty($rootPage->data[app()->getLocale()]['instagram_link']) ?
+            $rootPage->data[app()->getLocale()]['instagram_link'] : null;
+        $socialMediaItems['twitter'] = $rootPage && !empty($rootPage->data[app()->getLocale()]['twitter_link']) ?
+            $rootPage->data[app()->getLocale()]['twitter_link'] : null;
+
+        return $socialMediaItems;
+    }
+
     protected function getLanguageMenu(): array
     {
-        return [
-            [
-                'label' => 'LV',
-                'url' => '/lv',
-                'active' => request()->route()->uri() === 'lv',
-            ],
-            [
-                'label' => 'EN',
-                'url' => '/en',
-                'active' => request()->route()->uri() === 'en',
-            ],
-            [
-                'label' => 'RU',
-                'url' => '/ru',
-                'active' => request()->route()->uri() === 'ru',
-            ],
-        ];
+        $rootPage = $this->rootPage();
+        $pageLocales = array_keys(config('nova-page-manager.locales'));
+        $menu = [];
+
+        foreach ($pageLocales as $locale) {
+            $menu[] = [
+                'label' => strtoupper($locale),
+                'url' => $rootPage->path[$locale],
+                'active' => request()->route()->uri() === $locale,
+            ];
+        }
+
+        return $menu;
     }
 }
