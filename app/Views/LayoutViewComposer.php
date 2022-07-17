@@ -24,6 +24,7 @@ final class LayoutViewComposer
             'footerMenuLeft' => $this->getMenu(MenuType::FOOTER_LEFT->value),
             'footerMenuRight' => $this->getMenu(MenuType::FOOTER_RIGHT->value),
             'socialMedia' => $this->socialMediaMenu(),
+            'isHomePage' => $this->isHomePage(),
         ]);
     }
 
@@ -85,6 +86,17 @@ final class LayoutViewComposer
             ->first();
     }
 
+    protected function currentPage(): ?Page
+    {
+        $action = request()->route()->getAction();
+
+        if (isset($action['page_id'])) {
+            return Page::find($action['page_id']);
+        }
+
+        return null;
+    }
+
     protected function socialMediaMenu(): array
     {
         $rootPage = $this->rootPage();
@@ -109,10 +121,15 @@ final class LayoutViewComposer
             $menu[] = [
                 'label' => strtoupper($locale),
                 'url' => $rootPage->path[$locale],
-                'active' => request()->route()->uri() === $locale,
+                'active' => app()->getLocale() === $locale,
             ];
         }
 
         return $menu;
+    }
+
+    protected function isHomePage(): bool
+    {
+        return $this->rootPage()->id === $this->currentPage()->id;
     }
 }

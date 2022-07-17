@@ -2,6 +2,7 @@
     <div id="header-grid">
         <header-grid :menu="{{ json_encode($menu) }}"
                      :language-menu="{{ json_encode($languageMenu) }}"
+                     :is-home-page="{{ json_encode($isHomePage) }}"
         ></header-grid>
     </div>
 </header>

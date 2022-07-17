@@ -28,6 +28,10 @@ return [
                  'class' => \App\Nova\Templates\HomePageTemplate::class,
                  'unique' => true,
              ],
+            'catalog-page' => [
+                'class' => \App\Nova\Templates\CatalogPageTemplate::class,
+                'unique' => true,
+            ],
             'text-page' => [
                 'class' => \App\Nova\Templates\TextPageTemplate::class,
                 'unique' => false,

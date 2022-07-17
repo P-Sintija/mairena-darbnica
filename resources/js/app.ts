@@ -8,6 +8,7 @@ import HeaderGrid from "./globals/header/HeaderGrid";
 import FooterGrid from "./globals/footer/FooterGrid";
 
 Router.on('HomePageController@index', 'home/index.ts');
+Router.on('CatalogPageController@index', 'catalog/index.ts');
 Router.run();
 
 const header = createApp({});
