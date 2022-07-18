@@ -1,5 +1,7 @@
 <template>
-    <a :href="this.href" class="block font-medium text-gray-500 hover:underline">{{ this.label }}</a>
+    <a :href="this.href"
+       class="block text-text-gray-1 hover:text-dark-highlighted"
+    >{{ this.label }}</a>
 </template>
 
 <script>
