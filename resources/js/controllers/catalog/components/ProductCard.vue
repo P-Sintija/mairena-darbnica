@@ -1,7 +1,7 @@
 <template>
     <div @mouseover="this.isTarget = true"
          @mouseleave="this.isTarget = false"
-         class="product-card flex flex-col items-center justify-center w-full max-w-lg cursor-pointer">
+         class="product-card flex flex-col items-center justify-center w-full cursor-pointer">
         <img class="object-cover w-full rounded-md h-72 xl:h-80"
              :class="{ 'scale-105 transition-all transform duration-500': this.isTarget }"
              :src="this.image" :alt="this.name"
