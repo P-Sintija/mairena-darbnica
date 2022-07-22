@@ -6,9 +6,5 @@
         <category-menu></category-menu>
     </section>
 
-    <section id="catalog-grid">
-        <catalog-grid></catalog-grid>
-    </section>
-
 @endsection
 

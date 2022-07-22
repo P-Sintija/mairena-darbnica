@@ -28,6 +28,11 @@ PageRoutes::for(CatalogPageTemplate::$name, function ($page, $pagePath, $pageLoc
         'page_id' => $page->id,
         'page_locale' => $pageLocale,
     ])->name('index.' . $page->id);
+    Route::get($pagePath . '/1', [
+        'uses' => CatalogPageController::class . '@show',
+        'page_id' => $page->id,
+        'page_locale' => $pageLocale,
+    ])->name('show.' . $page->id);
 });
 
 PageRoutes::for(TextPageTemplate::$name, function ($page, $pagePath, $pageLocale) {

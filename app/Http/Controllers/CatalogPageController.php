@@ -19,4 +19,17 @@ class CatalogPageController extends Controller
             'pageData' => $pageData,
         ];
     }
+
+    public function show()
+    {
+        $page = $this->loadPage($this->request);
+        $pageData = $page->data ? $page->data[app()->getLocale()] : null;
+
+        $data = [
+            'page' => $page,
+            'pageData' => $pageData,
+        ];
+
+        return view('controllers.catalog.show', $data);
+    }
 }
