@@ -2,16 +2,16 @@
 
 @section('content')
 
-    <div id="hero-grid">
+    <section id="hero-grid">
         <hero-grid
             hero-image="{{ $heroImage }}"
             :hero-data=" {{ json_encode($pageData) }}"
         ></hero-grid>
-    </div>
+    </section>
 
-    <div id="category-grid">
+    <section id="category-grid">
         <category-grid></category-grid>
-    </div>
+    </section>
 
 @endsection
 

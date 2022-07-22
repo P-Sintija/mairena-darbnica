@@ -10,7 +10,8 @@
 
             <ul class="hidden lg:flex items-center justify-center space-x-8">
                 <li v-for="item in this.menu" :key="item">
-                    <a :href="item.url" class="text-xl text-text-white hover:text-light-highlighted" :target="item.target">{{
+                    <a :href="item.url" class="text-xl text-text-white hover:text-light-highlighted"
+                       :target="item.target">{{
                             item.label
                         }}</a>
                 </li>
@@ -117,6 +118,7 @@ export default {
     props: {
         menu: Object,
         languageMenu: Object,
+        isHomePage: Boolean,
     },
     data() {
         return {
@@ -130,6 +132,7 @@ export default {
     created() {
         window.addEventListener('scroll', this.handleStickyHeader);
         window.addEventListener('resize', this.handleMobMenu);
+        this.setTransparentBackground();
         this.setActiveLanguage();
     },
     destroyed() {
@@ -172,8 +175,13 @@ export default {
             }
         },
         setTransparentBackground() {
-            document.getElementById("header-grid").classList.remove("bg-dark-gray");
-            document.getElementById("header-grid").classList.add("bg-transparent");
+            if (this.isHomePage) {
+                document.getElementById("header-grid").classList.remove("bg-dark-gray");
+                document.getElementById("header-grid").classList.add("bg-transparent");
+            } else {
+                document.getElementById("header-grid").classList.remove("bg-transparent");
+                document.getElementById("header-grid").classList.add("bg-dark-gray");
+            }
         },
         setFilledBackground() {
             document.getElementById("header-grid").classList.remove("bg-transparent");

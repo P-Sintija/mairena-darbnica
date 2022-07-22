@@ -2,7 +2,25 @@
 
 namespace App\Providers;
 
+use App\Nova\AccessoryGroup;
+use App\Nova\AgeRestriction;
+use App\Nova\Booking;
+use App\Nova\Car;
+use App\Nova\Dashboards\Main;
+use App\Nova\ExteriorFeatureGroup;
+use App\Nova\FaqItem;
+use App\Nova\Insurance;
+use App\Nova\InteriorFeatureGroup;
+use App\Nova\MobappVersion;
+use App\Nova\MonthlyMileage;
+use App\Nova\ParkingSpot;
+use App\Nova\ServicePackage;
+use App\Nova\Term;
+use App\Nova\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Nova\Menu\MenuItem;
+use Laravel\Nova\Menu\MenuSection;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Outl1ne\MenuBuilder\MenuBuilder;
@@ -18,6 +36,21 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         parent::boot();
+
+        Nova::mainMenu(function (Request $request) {
+            return [
+                MenuSection::dashboard(Main::class)->icon('chart-pie'),
+                MenuSection::make('Other', [
+                    MenuItem::resource(User::class),
+                ])->icon('user')->collapsable(),
+                MenuSection::make('Menus')
+                    ->path('/menus')
+                    ->icon('menu'),
+                MenuSection::make('Pages')
+                    ->path('/resources/pages')
+                    ->icon('template'),
+            ];
+        });
     }
 
     /**

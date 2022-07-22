@@ -13,7 +13,7 @@
 
 @include('layouts.partials.header')
 
-<main>
+<main @if(!$isHomePage) class="mt-[88px]" @endif>
     @yield('content')
 </main>
 
