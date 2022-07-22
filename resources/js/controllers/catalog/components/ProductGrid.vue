@@ -1,72 +1,114 @@
 <template>
-    <div class="grid grid-cols-1 gap-8 mt-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+    <div class="container mx-auto px-5 md:flex items-start justify-center md:pt-24 md:pb-14 pt-10 pb-4 w-full">
 
-        <product-card class="reveal"
-                      :image="'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80'"
-                      :name="'Printed T-shirt'"
-                      :price="12.55"
-        ></product-card>
+        <product-gallery></product-gallery>
 
-        <product-card class="reveal"
-                      :image="'https://images.unsplash.com/photo-1620799139507-2a76f79a2f4d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=966&q=80'"
-                      :name="'Slub jersey T-shirt'"
-                      :price="18.70"
-        ></product-card>
+        <div class="md:w-1/2 lg:w-3/5 lg:ml-10 md:ml-6 md:mt-0 mt-6">
 
-        <product-card class="reveal"
-                      :image="'https://images.unsplash.com/photo-1603320409990-02d834987237?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80'"
-                      :name="'Printed T-shirt'"
-                      :price="16.55"
-        ></product-card>
+            <div>
+                <h1 class="text-text-gray-1 text-2xl font-medium">Nike epic react flyknit</h1>
+                <h3 class="text-dark-highlighted text-2xl font-semibold mb-7 mt-2">150 $</h3>
+                <p class="text-text-gray-2 text-justify mb-7">
+                    The Nike Epic React Flyknit 1 provides crazy comfort that lasts as long as you can run. Its Nike
+                    React foam cushioning is responsive yet lightweight, durable yet soft. This attraction of opposites
+                    creates a sensation that not only enhances the feeling of moving forwards, but makes running feel
+                    fun, too.
+                </p>
 
-        <product-card class="reveal"
-                      :image="'https://images.unsplash.com/photo-1603320410149-db26b12d5c2b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80'"
-                      :name="'Art T-shirt'"
-                      :price="12.55"
-        ></product-card>
+                <select-field></select-field>
 
-        <product-card class="reveal"
-                      :image="'https://images.unsplash.com/photo-1620799139507-2a76f79a2f4d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=966&q=80'"
-                      :name="'Slub jersey T-shirt'"
-                      :price="18.70"
-        ></product-card>
+                <div class="flex items-center flex-col space-y-4 mt-12 mb-5">
+                    <add-to-cart-button></add-to-cart-button>
 
-        <product-card class="reveal"
-                      :image="'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80'"
-                      :name="'Printed T-shirt'"
-                      :price="12.55"
-        ></product-card>
+                    <add-to-wish-list-button></add-to-wish-list-button>
+                </div>
 
+            </div>
+
+
+
+            <div v-for="(item, index) in this.details">
+                <div class="border-b border-br-gray-1">
+                    <button
+                        class="py-7 text-text-gray-1 hover:text-dark-highlighted flex justify-between items-center w-full"
+                        @click="openAnsSection(index)">
+
+                        <h3 class="font-semibold text-xl leading-5">{{ item.label }}</h3>
+
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path :id="'path'.concat(index)" class="" d="M10 4.1665V15.8332" stroke="currentColor"
+                                  stroke-width="1.25"
+                                  stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M4.16602 10H15.8327" stroke="currentColor" stroke-width="1.25"
+                                  stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <p :id="'para'.concat(index)"
+                       class="hidden text-base leading-6 text-text-gray-2 text-justify mb-4">
+                        {{ item.text }}</p>
+                </div>
+
+            </div>
+
+        </div>
     </div>
+
 </template>
 
 <script>
-import ProductCard from "./ProductCard";
+import ProductGallery from "./ProductGallery";
+import SelectField from "../../../globals/forms/SelectField";
+import AddToCartButton from "../../../globals/buttons/primary/AddToCartButton";
+import AddToWishListButton from "../../../globals/buttons/secondary/AddToWishlistButton";
 
 export default {
     name: "ProductGrid",
-    components: {ProductCard},
-    created() {
-        window.addEventListener('scroll', this.reveal);
-        window.addEventListener('load', this.reveal);
+    components: {AddToWishListButton, AddToCartButton, SelectField, ProductGallery},
+    data() {
+        return {
+            details: [],
+        }
     },
-    destroyed() {
-        window.removeEventListener('scroll', this.reveal);
-        window.removeEventListener('load', this.reveal);
+    mounted() {
+        this.details = [
+            {
+                label: 'Shipping',
+                text: 'We are covering every major country worldwide. The shipment leaves from US as it is our headquarter. Some extra information you probably need to add here so that the customer is clear of their wanted expectations.',
+            },
+            {
+                label: 'Returns',
+                text: 'We are covering every major country worldwide. The shipment leaves from US as it is our headquarter. Some extra information you probably need to add here so that the customer is clear of their wanted expectations.',
+            },
+            {
+                label: 'Exchange',
+                text: 'We are covering every major country worldwide. The shipment leaves from US as it is our headquarter. Some extra information you probably need to add here so that the customer is clear of their wanted expectations.',
+            },
+            {
+                label: 'Tracking',
+                text: 'We are covering every major country worldwide. The shipment leaves from US as it is our headquarter. Some extra information you probably need to add here so that the customer is clear of their wanted expectations.',
+            },
+        ]
     },
     methods: {
-        reveal() {
-            const reveals = document.querySelectorAll(".reveal")
+        openAnsSection(val) {
+            console.log(val)
+            var p = document.getElementById("para" + val);
+            var svg = document.getElementById("path" + val);
 
-            for (let i = 0; i < reveals.length; i++) {
-                const windowHeight = window.innerHeight;
-                const elementTop = reveals[i].getBoundingClientRect().top;
-                const elementVisible = 80;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                } else {
-                    reveals[i].classList.remove("active");
-                }
+            if (p.classList.contains("hidden")) {
+                p.classList.remove("hidden");
+                p.classList.add("block");
+            } else {
+                p.classList.remove("block");
+                p.classList.add("hidden");
+            }
+
+            if (svg.classList.contains("hidden")) {
+                svg.classList.remove("hidden");
+                svg.classList.add("block");
+            } else {
+                svg.classList.remove("block");
+                svg.classList.add("hidden");
             }
         },
     }
@@ -74,15 +116,5 @@ export default {
 </script>
 
 <style scoped>
-.reveal {
-    position: relative;
-    transform: translateY(80px);
-    opacity: 0;
-    transition: 1.5s all ease;
-}
 
-.reveal.active {
-    transform: translateY(0);
-    opacity: 1;
-}
 </style>

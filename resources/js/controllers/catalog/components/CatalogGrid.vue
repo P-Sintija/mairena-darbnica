@@ -5,7 +5,7 @@
 
                 <sort-order-nav></sort-order-nav>
 
-                <product-grid></product-grid>
+                <product-card-grid></product-card-grid>
 
             </div>
         </div>
@@ -14,11 +14,11 @@
 
 <script>
 import SortOrderNav from "./SortOrderNav";
-import ProductGrid from "./ProductGrid";
+import ProductCardGrid from "./ProductCardGrid";
 
 export default {
     name: "CatalogGrid",
-    components: {ProductGrid, SortOrderNav},
+    components: {ProductCardGrid, SortOrderNav},
 }
 </script>
 

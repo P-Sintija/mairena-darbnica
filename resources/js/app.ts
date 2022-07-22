@@ -2,8 +2,8 @@ require('./bootstrap');
 
 import Router from '@modules/router.ts';
 import {createApp} from "vue";
-import HeaderGrid from "./globals/header/HeaderGrid";
-import FooterGrid from "./globals/footer/FooterGrid";
+import HeaderGrid from "./globals/header/HeaderGrid.vue";
+import FooterGrid from "./globals/footer/FooterGrid.vue";
 
 Router.on('HomePageController@index', 'home/index.ts');
 Router.on('CatalogPageController@index', 'catalog/index.ts');
