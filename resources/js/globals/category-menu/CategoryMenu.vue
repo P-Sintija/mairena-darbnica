@@ -3,16 +3,12 @@
 
         <nav class="flex px-4 w-full justify-center bg-white">
             <ul class=" md:px-2 md:flex md:space-x-2">
-                <li>
-                    <a href="#" class="flex md:inline-flex p-4 items-center text-text-gray-1 hover:text-dark-highlighted">
-                        <span>Home</span>
+                <li v-for="(item) in this.categoryData">
+                    <a :href="item.url" class="flex md:inline-flex p-4 items-center text-text-gray-1 hover:text-dark-highlighted">
+                        <span>{{ item.label }}</span>
                     </a>
                 </li>
-                <li>
-                    <a href="#" class="flex md:inline-flex p-4 items-center text-text-gray-1 hover:text-dark-highlighted">
-                        <span>Products</span>
-                    </a>
-                </li>
+
                 <li class="relative parent">
                     <a href="#" class="flex justify-between md:inline-flex p-4 items-center text-text-gray-1 hover:text-dark-highlighted space-x-2">
                         <span>Service</span>
@@ -51,7 +47,8 @@
 
 <script>
 export default {
-    name: "CategoryMenu"
+    name: "CategoryMenu",
+    props: ['categoryData'],
 }
 </script>
 

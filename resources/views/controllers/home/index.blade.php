@@ -10,7 +10,8 @@
     </section>
 
     <section id="category-grid">
-        <category-grid></category-grid>
+        <category-grid :category-data=" {{ json_encode($categoryData) }}"
+        ></category-grid>
     </section>
 
 @endsection

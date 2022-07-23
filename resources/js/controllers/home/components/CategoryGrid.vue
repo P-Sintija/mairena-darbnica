@@ -3,16 +3,10 @@
         <div class="md:py-20 py-10">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
 
-                <category-card-vertical
-                    :backgroundUrl="'https://i.ibb.co/QHS8Ngp/pexels-alana-sousa-3294250-1.png'"
-                    :href="'#'"
-                    :label="'Lounge Chair'"
-                ></category-card-vertical>
-
-                <category-card-vertical
-                    :backgroundUrl="'https://i.ibb.co/T8jgRy3/pexels-leah-kelley-1449667-1.png'"
-                    :href="'#'"
-                    :label="'Lounge Chair'"
+                <category-card-vertical v-for="(item) in this.categoryData"
+                    :backgroundUrl="item.image"
+                    :href="item.url"
+                    :label="item.label"
                 ></category-card-vertical>
 
                 <category-card-vertical
@@ -49,7 +43,8 @@ import CategoryCardHorizontal from "../../../globals/categories/CategoryCardHori
 
 export default {
     name: "CategoryGrid",
-    components: {CategoryCardHorizontal, CategoryCardVertical}
+    components: {CategoryCardHorizontal, CategoryCardVertical},
+    props: ['categoryData'],
 }
 </script>
 

@@ -3,9 +3,11 @@
 namespace App\Views;
 
 use App\Enums\Menu\Type as MenuType;
+use App\Models\Categories\Category;
 use App\Models\Menu\Menu;
 use App\Models\Page;
 use App\Nova\MenuBuilder\MenuItemTypes\MenuItemPageType;
+use App\Nova\Templates\CatalogPageTemplate;
 use App\Nova\Templates\HomePageTemplate;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +27,7 @@ final class LayoutViewComposer
             'footerMenuRight' => $this->getMenu(MenuType::FOOTER_RIGHT->value),
             'socialMedia' => $this->socialMediaMenu(),
             'isHomePage' => $this->isHomePage(),
+            'categoryMenu' => $this->categoryMenu(),
         ]);
     }
 
@@ -131,5 +134,25 @@ final class LayoutViewComposer
     protected function isHomePage(): bool
     {
         return $this->rootPage()->id === $this->currentPage()->id;
+    }
+
+    protected function categoryMenu()
+    {
+        $catalogPage = Page::where('template', CatalogPageTemplate::$name)
+            ->where('active', true)
+            ->first();
+
+        $menu = [];
+
+        if ($catalogPage && !empty($catalogPage->path[app()->getLocale()])) {
+            foreach (Category::all() as $category) {
+                $menu[] = [
+                    'label' => $category->name,
+                    'url' => $catalogPage->path[app()->getLocale()] . '/' . $category->slug,
+                ];
+            }
+        }
+
+        return $menu;
     }
 }
